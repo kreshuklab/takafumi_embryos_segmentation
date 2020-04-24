@@ -52,12 +52,12 @@ trainer:
   # how many iterations between tensorboard logging
   log_after_iters: 100
   # max number of epochs
-  epochs: 1000
+  max_epochs: 1000
   # max number of iterations
-  iters: 50000
+  max_iters: 50000
 # Configure training and validation loaders
 loaders:
-  batch_size: 4
+  batch_size: 3
   # how many subprocesses to use for data loading
   num_workers: 8
   # path to the raw data within the H5
