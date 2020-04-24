@@ -9,7 +9,7 @@ model:
   # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
   layer_order: gcr
   # initial number of feature maps
-  f_maps: [32, 64, 128, 256, 512]
+  f_maps: [16, 32, 64, 128, 256]
   # number of groups in the groupnorm
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
@@ -52,9 +52,9 @@ trainer:
   # how many iterations between tensorboard logging
   log_after_iters: 100
   # max number of epochs
-  max_epochs: 1000
+  max_num_epochs: 1000
   # max number of iterations
-  max_iters: 50000
+  max_num_iters: 50000
 # Configure training and validation loaders
 loaders:
   batch_size: 3
