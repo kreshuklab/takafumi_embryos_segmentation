@@ -1,5 +1,5 @@
 # path to the checkpoint file containing the model
-model_path: '/g/kreshuk/wolny/workspace/takafumi_data/unet_config/best_checkpoint.pytorch'
+model_path: '/g/kreshuk/wolny/workspace/takafumi_data/unet_train/best_checkpoint.pytorch'
 # use a fixed random seed to guarantee that when you run the code twice you will get the same outcome
 manual_seed: 0
 model:
@@ -34,7 +34,7 @@ loaders:
     # paths to the test datasets; if a given path is a directory all H5 files ('*.h5', '*.hdf', '*.hdf5', '*.hd5')
     # inside this this directory will be included as well (non-recursively)
     file_paths:
-      - '/home/adrian/workspace/ilastik-datasets/Takafumi/gt/Cam_Long_00036.h5'
+      - '/g/kreshuk/wolny/Datasets/Takafumi/to_be_improved'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
