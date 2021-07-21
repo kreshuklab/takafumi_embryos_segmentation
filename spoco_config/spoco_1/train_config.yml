@@ -71,8 +71,8 @@ loaders:
 
       slice_builder:
         name: SliceBuilder
-        patch_shape: [64, 100, 100]
-        stride_shape: [16, 25, 25]
+        patch_shape: [64, 80, 80]
+        stride_shape: [16, 20, 20]
 
       transformer:
         raw:
@@ -108,8 +108,8 @@ loaders:
 
       slice_builder:
         name: SliceBuilder
-        patch_shape: [64, 100, 100]
-        stride_shape: [64, 100, 100]
+        patch_shape: [64, 80, 80]
+        stride_shape: [64, 80, 80]
 
       transformer:
         raw:
