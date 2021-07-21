@@ -1,4 +1,4 @@
-manual_seed: 0
+wandb_project: 'Takafumi'
 model:
   name: UNet3D
   in_channels: 1
