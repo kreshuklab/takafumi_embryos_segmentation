@@ -37,8 +37,7 @@ loss:
   bootstrap_iter: null
   # lower consistency weight
   consistency_weight: 0.5
-  # more anchors
-  max_anchors: 80
+  max_anchors: 50
   bg_push: True
   delta_var: 0.5
   delta_dist: 2.0
