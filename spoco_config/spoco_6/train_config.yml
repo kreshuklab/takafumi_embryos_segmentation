@@ -29,15 +29,15 @@ trainer:
   max_num_iterations: 200000
   eval_score_higher_is_better: True
 optimizer:
-  learning_rate: 0.0002
+
+  # lower learning rate
+  learning_rate: 0.0001
   weight_decay: 0.00001
 loss:
   name: SpocoEmbAuxContrastiveLoss
-  # bootstrap without consistency term first
   bootstrap_iter: null
-  # lower consistency weight
-  consistency_weight: 0.5
-  max_anchors: 60
+  consistency_weight: 1.0
+  max_anchors: 40
   bg_push: True
   delta_var: 0.5
   delta_dist: 2.0
@@ -57,7 +57,7 @@ lr_scheduler:
   name: ReduceLROnPlateau
   mode: max
   factor: 0.2
-  patience: 10
+  patience: 20
 loaders:
   batch_size: 1
   num_workers: 4
