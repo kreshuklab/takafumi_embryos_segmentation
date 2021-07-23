@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
         with h5py.File(file_path, 'r+') as f:
             raw_sequence = f['raw_sequence'][:]
-            embedding_sequence = f['embedding_sequence'][:]
+            embedding_sequence = f['embedding_sequence1'][:]
             seg_sequence = []
 
             i = 0
