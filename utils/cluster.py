@@ -112,7 +112,8 @@ if __name__ == '__main__':
             for raw, emb in zip(raw_sequence, embedding_sequence):
                 i += 1
                 print(f'Processing patch {i}')
-                seg = run_clustering(emb, args.clustering, args.delta_var, args.min_size, args.remove_largest)
+                seg = run_clustering(emb, args.clustering, args.delta_var, args.min_size, args.expand_labels,
+                                     args.remove_largest)
                 seg_sequence.append(seg)
 
             if args.seg_ds in f:
