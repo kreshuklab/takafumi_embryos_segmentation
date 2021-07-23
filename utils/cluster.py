@@ -97,8 +97,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     assert os.path.isdir(args.emb_dir)
-    if args.sem_dir is not None:
-        assert os.path.isdir(args.sem_dir)
 
     for file_path in glob.glob(os.path.join(args.emb_dir, '*predictions.h5')):
         _, filename = os.path.split(file_path)
