@@ -24,7 +24,7 @@ loss:
   ignore_index: 1
 optimizer:
   # initial learning rate
-  learning_rate: 0.0001
+  learning_rate: 0.000025
   # weight decay
   weight_decay: 0.00001
 # evaluation metric
@@ -51,9 +51,9 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory (this is where the model is saved)
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/takafumi_data/unet_072021'
-  # path to latest checkpoint; if provided the training will be resumed from that checkpoint
-  resume: null
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/takafumi_data/unet_072021_pretrained'
+  # from pre_trained
+  pre_trained: '/g/kreshuk/wolny/workspace/takafumi_data/unet_train/best_checkpoint.pytorch'
   # how many iterations between validations
   validate_after_iters: 200
   # how many iterations between tensorboard logging

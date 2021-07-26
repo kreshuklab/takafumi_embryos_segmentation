@@ -1,5 +1,5 @@
 # path to the checkpoint file containing the model
-model_path: '/g/kreshuk/wolny/workspace/takafumi_data/unet_072021/best_checkpoint.pytorch'
+model_path: '/g/kreshuk/wolny/workspace/takafumi_data/unet_072021_pretrained/best_checkpoint.pytorch'
 model:
   name: UNet3D
   # number of input channels to the model
