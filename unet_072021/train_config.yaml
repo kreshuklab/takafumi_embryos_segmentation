@@ -21,7 +21,7 @@ loss:
   # skip the last channel in the target (i.e. when last channel contains data not relevant for the loss)
   skip_last_target: true
   # ignore a given label in the gradient computation
-  ignore_index: 1
+  ignore_index: -1
 optimizer:
   # initial learning rate
   learning_rate: 0.0001
@@ -36,7 +36,7 @@ eval_metric:
   # use the last target channel to compute the metric
   use_last_target: true
   # ignore a given label in the metric computation
-  ignore_index: 1
+  ignore_index: -1
 # learning rate scheduler configuration
 lr_scheduler:
   # reduce learning rate when training stagnates
