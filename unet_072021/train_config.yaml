@@ -13,6 +13,7 @@ model:
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
   final_sigmoid: true
+  is_segmentation: true
 # loss function to be used during training
 loss:
   # use binary cross-entropy combined with the Dice loss

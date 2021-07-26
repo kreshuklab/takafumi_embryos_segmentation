@@ -14,6 +14,7 @@ model:
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
   final_sigmoid: true
+  is_segmentation: true
 # predictor configuration
 predictor:
   # standard in memory predictor
