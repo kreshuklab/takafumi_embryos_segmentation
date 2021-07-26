@@ -19,9 +19,11 @@ loss:
   name: BCEDiceLoss
   # skip the last channel in the target (i.e. when last channel contains data not relevant for the loss)
   skip_last_target: true
+  # ignore a given label in the gradient computation
+  ignore_index: 1
 optimizer:
   # initial learning rate
-  learning_rate: 0.0002
+  learning_rate: 0.0001
   # weight decay
   weight_decay: 0.00001
 # evaluation metric
@@ -32,6 +34,8 @@ eval_metric:
   threshold: 0.4
   # use the last target channel to compute the metric
   use_last_target: true
+  # ignore a given label in the metric computation
+  ignore_index: 1
 # learning rate scheduler configuration
 lr_scheduler:
   # reduce learning rate when training stagnates
@@ -41,27 +45,27 @@ lr_scheduler:
   # reduce by a factor of 5
   factor: 0.2
   # reduce LR if the validation metric does not improve after 'patience' number of validation runs
-  patience: 15
+  patience: 25
 trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory (this is where the model is saved)
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/takafumi_data/dimitri_data'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/takafumi_data/unet_072021'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
-  validate_after_iters: 500
+  validate_after_iters: 250
   # how many iterations between tensorboard logging
   log_after_iters: 250
   # max number of epochs
-  max_num_epochs: 20000
+  max_num_epochs: 50000
   # max number of iterations
   max_num_iters: 50000
 # Configure training and validation loaders
 loaders:
-  batch_size: 3
+  batch_size: 1
   # how many subprocesses to use for data loading
-  num_workers: 8
+  num_workers: 4
   # path to the raw data within the H5
   raw_internal_path: raw
   # path to the the label data withtin the H5
@@ -70,16 +74,13 @@ loaders:
   train:
     # paths to the training datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/Dimitri/180507a/train'
-      - '/g/kreshuk/wolny/Datasets/Dimitri/180507c/train'
+      - '/g/kreshuk/wolny/Datasets/Takafumi/072021/train'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
       name: SliceBuilder
-      # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-      patch_shape: [70, 160, 160]
-      # train stride between patches
-      stride_shape: [18, 94, 94]
+      patch_shape: [80, 100, 100]
+      stride_shape: [5, 10, 10]
 
     # data augmentation pipeline
     transformer:
@@ -94,9 +95,13 @@ loaders:
           mode: reflect
         - name: ElasticDeformation
           spline_order: 3
-          execution_probability: 0.25
+          execution_probability: 0.3
+        - name: GaussianBlur3D
+          execution_probability: 0.5
         - name: AdditiveGaussianNoise
+          execution_probability: 0.25
         - name: AdditivePoissonNoise
+          execution_probability: 0.25
         - name: ToTensor
           expand_dims: true
       label:
@@ -109,14 +114,10 @@ loaders:
           mode: reflect
         - name: ElasticDeformation
           spline_order: 0
-          execution_probability: 0.25
+          execution_probability: 0.3
         - name: StandardLabelToBoundary
           # append original ground truth labels to the last channel (to be able to compute the eval metric)
           append_label: true
-          # guassian blur and threshold the boundary map in order to help with overfitting
-          blur: true
-          # stddev of Gaussian kernel
-          sigma: 1.0
         - name: ToTensor
           expand_dims: false
 
@@ -124,16 +125,13 @@ loaders:
   val:
     # paths to the val datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/Dimitri/180507a/val'
-      - '/g/kreshuk/wolny/Datasets/Dimitri/180507c/val'
+      - - '/g/kreshuk/wolny/Datasets/Takafumi/072021/val'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
       name: SliceBuilder
-      # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-      patch_shape: [70, 160, 160]
-      # train stride between patches
-      stride_shape: [18, 94, 94]
+      patch_shape: [111, 133, 133]
+      stride_shape: [111, 133, 133]
 
     # data augmentation
     transformer:
@@ -144,7 +142,5 @@ loaders:
       label:
         - name: StandardLabelToBoundary
           append_label: true
-          blur: true
-          sigma: 0.8
         - name: ToTensor
           expand_dims: false
