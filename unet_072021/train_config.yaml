@@ -125,7 +125,7 @@ loaders:
   val:
     # paths to the val datasets
     file_paths:
-      - - '/g/kreshuk/wolny/Datasets/Takafumi/072021/val'
+      - '/g/kreshuk/wolny/Datasets/Takafumi/072021/val'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
