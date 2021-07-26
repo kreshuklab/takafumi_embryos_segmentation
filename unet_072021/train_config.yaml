@@ -45,7 +45,7 @@ lr_scheduler:
   # reduce by a factor of 5
   factor: 0.2
   # reduce LR if the validation metric does not improve after 'patience' number of validation runs
-  patience: 25
+  patience: 20
 trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
@@ -54,9 +54,9 @@ trainer:
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
-  validate_after_iters: 250
+  validate_after_iters: 200
   # how many iterations between tensorboard logging
-  log_after_iters: 250
+  log_after_iters: 100
   # max number of epochs
   max_num_epochs: 50000
   # max number of iterations
