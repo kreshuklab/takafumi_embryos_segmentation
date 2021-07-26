@@ -63,7 +63,7 @@ trainer:
   max_num_iters: 50000
 # Configure training and validation loaders
 loaders:
-  batch_size: 1
+  batch_size: 3
   # how many subprocesses to use for data loading
   num_workers: 4
   # path to the raw data within the H5
