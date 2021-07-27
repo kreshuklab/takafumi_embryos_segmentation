@@ -144,5 +144,6 @@ loaders:
       label:
         - name: StandardLabelToBoundary
           append_label: true
+          ignore_index: -1
         - name: ToTensor
           expand_dims: false
