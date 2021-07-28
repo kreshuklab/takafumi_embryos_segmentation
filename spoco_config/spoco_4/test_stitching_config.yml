@@ -1,0 +1,48 @@
+model_path: "/g/kreshuk/wolny/workspace/takafumi_data/spoco_config/spoco_4/best_checkpoint.pytorch"
+model:
+  name: SpocoInference
+  is3d: true
+  in_channels: 1
+  # embedding dimension
+  out_channels: 16
+  layer_order: gcr
+  num_groups: 8
+  f_maps: [64, 128, 256, 512]
+  is_segmentation: false
+  final_sigmoid: false
+predictor:
+  # standard in memory predictor
+  name: StitchingEmbeddingsPredictor
+  spoco: true
+  # save predictions to output_dir
+  output_dir: '/g/kreshuk/wolny/Datasets/TakafumiCell/val/spoco_4_stitch'
+  clustering: hdbscan
+  delta_var: 0.5
+  min_size: 200
+loaders:
+  # batch dimension; if number of GPUs is N > 1, then a batch_size of N * batch_size will automatically be taken for DataParallel
+  batch_size: 1
+  # how many subprocesses to use for data loading
+  num_workers: 4
+  dataset:
+    patch_halo: [6, 8, 8]
+    name: StandardHDF5Dataset
+    # test loaders configuration
+    test:
+      file_paths:
+        - '/g/kreshuk/wolny/Datasets/TakafumiCell/val'
+
+      # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
+      slice_builder:
+        # SliceBuilder class
+        name: SliceBuilder
+        # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
+        patch_shape: [64, 80, 80]
+        # train stride between patches
+        stride_shape: [64, 80, 80]
+
+      transformer:
+          raw:
+            - name: Standardize
+            - name: ToTensor
+              expand_dims: true
