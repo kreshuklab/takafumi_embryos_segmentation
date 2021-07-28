@@ -19,6 +19,8 @@ predictor:
   clustering: hdbscan
   delta_var: 0.5
   min_size: 200
+  expand_labels: true
+  remove_largest: true
 loaders:
   # batch dimension; if number of GPUs is N > 1, then a batch_size of N * batch_size will automatically be taken for DataParallel
   batch_size: 1
