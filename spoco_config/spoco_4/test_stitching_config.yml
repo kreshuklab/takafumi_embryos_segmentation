@@ -27,7 +27,7 @@ loaders:
   # how many subprocesses to use for data loading
   num_workers: 4
   dataset:
-    patch_halo: [6, 8, 8]
+    patch_halo: [8, 10, 10]
     name: StandardHDF5Dataset
     # test loaders configuration
     test:

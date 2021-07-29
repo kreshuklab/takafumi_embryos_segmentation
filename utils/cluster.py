@@ -5,8 +5,9 @@ import os
 import h5py
 import hdbscan
 import numpy as np
-import vigra
 from scipy.ndimage import binary_erosion
+from skimage.filters import gaussian
+from skimage.segmentation import watershed
 from sklearn.cluster import MeanShift
 
 
@@ -16,14 +17,14 @@ def expand_labels_watershed(seg, raw, erosion_iters=4):
     if bg_mask.size == int(bg_mask.sum()):
         return seg
 
-    hmap = vigra.filters.gaussianSmoothing(raw, sigma=1.)
+    hmap = gaussian(raw, sigma=1.)
 
     bg_mask = binary_erosion(bg_mask, iterations=erosion_iters)
     seg_new = seg.copy()
     bg_id = int(seg.max()) + 1
     seg_new[bg_mask] = bg_id
 
-    seg_new, _ = vigra.analysis.watershedsNew(hmap, seeds=seg_new.astype('uint32'))
+    seg_new = watershed(hmap, seg_new)
 
     seg_new[seg_new == bg_id] = 0
     return seg_new
