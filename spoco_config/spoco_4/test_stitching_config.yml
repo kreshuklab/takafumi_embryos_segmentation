@@ -27,12 +27,12 @@ loaders:
   # how many subprocesses to use for data loading
   num_workers: 4
   dataset:
-    patch_halo: [8, 10, 10]
+    patch_halo: [6, 8, 8]
     name: StandardHDF5Dataset
     # test loaders configuration
     test:
       file_paths:
-        - '/g/kreshuk/wolny/Datasets/TakafumiCell/val'
+        - '/g/kreshuk/wolny/Datasets/TakafumiCell/test'
 
       # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
       slice_builder:
