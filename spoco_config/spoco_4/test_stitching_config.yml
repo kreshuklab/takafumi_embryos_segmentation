@@ -15,7 +15,7 @@ predictor:
   name: StitchingEmbeddingsPredictor
   spoco: true
   # save predictions to output_dir
-  output_dir: '/g/kreshuk/wolny/Datasets/TakafumiCell/val/spoco_4_stitch'
+  output_dir: '/g/kreshuk/wolny/Datasets/TakafumiCell/val/spoco_4_stitch_1'
   clustering: hdbscan
   delta_var: 0.5
   delta_dist: 2.0
@@ -28,7 +28,7 @@ loaders:
   # how many subprocesses to use for data loading
   num_workers: 4
   dataset:
-    patch_halo: [6, 8, 8]
+    patch_halo: [8, 10, 10]
     name: StandardHDF5Dataset
     # test loaders configuration
     test:
@@ -40,9 +40,9 @@ loaders:
         # SliceBuilder class
         name: SliceBuilder
         # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-        patch_shape: [64, 80, 80]
+        patch_shape: [48, 60, 60]
         # train stride between patches
-        stride_shape: [64, 80, 80]
+        stride_shape: [48, 60, 60]
 
       transformer:
           raw:
