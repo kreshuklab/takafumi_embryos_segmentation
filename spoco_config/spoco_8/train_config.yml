@@ -1,0 +1,125 @@
+wandb_project: 'Takafumi'
+model:
+  name: UNet3D
+  in_channels: 1
+  # embedding dimension
+  out_channels: 16
+  # use Groupnorm instead of Batchnorm for DSB; Batchnorm introduces artifacts around nuclei due to the difference
+  # in intensity distribution between images with large and small cells
+  layer_order: gcr
+  num_groups: 8
+  f_maps: [64, 128, 256, 512]
+  is_segmentation: false
+  final_sigmoid: false
+  # spoco momentum
+  momentum: 0.999
+  # initialize q and k to be equal
+  init_equal: true
+trainer:
+  builder: SpocoTrainerBuilder
+  tensorboard_formatter:
+    name: EmbeddingsTensorboardFormatter
+    # plot cumulative explained variance of the PCA components
+    plot_variance: True
+    is3d: True
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/takafumi_data/spoco_config/spoco_8'
+  validate_after_iters: 1000
+  log_after_iters: 500
+  max_num_epochs: 20000
+  max_num_iterations: 200000
+  eval_score_higher_is_better: True
+optimizer:
+  learning_rate: 0.0002
+  weight_decay: 0.00001
+loss:
+  name: SpocoEmbAuxContrastiveLoss
+  # bootstrap without consistency term first
+  bootstrap_iter: null
+  consistency_weight: 1.0
+  # more anchors
+  max_anchors: 40
+  bg_push: True
+  delta_var: 0.5
+  delta_dist: 2.0
+  norm: 'fro'
+  alpha: 1.0
+  beta: 1.0
+  delta: 1.0
+  # no regularization term
+  gamma: 0.0
+  aux_loss: 'dice'
+  kernel_threshold: 0.9
+eval_metric:
+  name: MeanEmbeddingAveragePrecision
+  # delta_var SHOULD BE the same as `delta_var` from the ContrastiveLoss
+  epsilon: 0.5
+lr_scheduler:
+  name: ReduceLROnPlateau
+  mode: max
+  factor: 0.2
+  patience: 10
+loaders:
+  batch_size: 1
+  num_workers: 4
+
+  dataset:
+    name: StandardHDF5Dataset
+    spoco: True
+    raw_internal_path: 'raw'
+    label_internal_path: 'label'
+    train:
+      file_paths:
+        - '/g/kreshuk/wolny/Datasets/TakafumiCell/train'
+
+      slice_builder:
+        name: SliceBuilder
+        patch_shape: [64, 80, 80]
+        stride_shape: [16, 20, 20]
+
+      transformer:
+        raw:
+          - name: Standardize
+          - name: RandomFlip
+          - name: RandomRotate90
+          - name: RandomRotate
+            angle_spectrum: 45
+            mode: reflect
+            order: 3
+          - name: ElasticDeformation
+            spline_order: 3
+            execution_probability: 0.2
+          - name: GaussianBlur3D
+            execution_probability: 0.5
+        label:
+          - name: RandomFlip
+          - name: RandomRotate90
+          - name: RandomRotate
+            angle_spectrum: 45
+            mode: reflect
+            order: 0
+          - name: ElasticDeformation
+            spline_order: 0
+            execution_probability: 0.2
+          - name: Relabel
+          - name: ToTensor
+            expand_dims: false
+            dtype: 'int64'
+    val:
+      file_paths:
+        - '/g/kreshuk/wolny/Datasets/TakafumiCell/val'
+
+      slice_builder:
+        name: SliceBuilder
+        patch_shape: [64, 80, 80]
+        stride_shape: [64, 80, 80]
+
+      transformer:
+        raw:
+          - name: Standardize
+          - name: ToTensor
+            expand_dims: true
+        label:
+          - name: Relabel
+          - name: ToTensor
+            expand_dims: false
+            dtype: 'int64'
