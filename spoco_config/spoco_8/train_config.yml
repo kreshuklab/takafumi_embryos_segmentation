@@ -73,7 +73,7 @@ loaders:
 
       slice_builder:
         name: SliceBuilder
-        patch_shape: [60, 80, 80]
+        patch_shape: [50, 80, 80]
         stride_shape: [15, 20, 20]
 
       transformer:
