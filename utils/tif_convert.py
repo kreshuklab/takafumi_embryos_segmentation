@@ -28,7 +28,8 @@ def main(in_path):
         print(raw_file, seg_file)
         raw = tifffile.imread(raw_file)
         seg = tifffile.imread(seg_file)
-        seg[seg == 1] = 0
+        seg = seg.astype('int32')
+        seg[seg == 1] = -1
 
         out_fn = os.path.split(raw_file)[1].split('.')[0] + '.h5'
         out_path = os.path.join(in_path, out_fn)
