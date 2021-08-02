@@ -37,7 +37,7 @@ loss:
   bootstrap_iter: null
   consistency_weight: 1.0
   # more anchors
-  max_anchors: 40
+  max_anchors: 30
   bg_push: True
   delta_var: 0.5
   delta_dist: 2.0
@@ -73,8 +73,8 @@ loaders:
 
       slice_builder:
         name: SliceBuilder
-        patch_shape: [50, 80, 80]
-        stride_shape: [12, 20, 20]
+        patch_shape: [50, 70, 70]
+        stride_shape: [12, 18, 18]
 
       transformer:
         raw:
@@ -110,8 +110,8 @@ loaders:
 
       slice_builder:
         name: SliceBuilder
-        patch_shape: [64, 80, 80]
-        stride_shape: [64, 80, 80]
+        patch_shape: [50, 70, 70]
+        stride_shape: [50, 70, 70]
 
       transformer:
         raw:
