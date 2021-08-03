@@ -1,6 +1,7 @@
 model_path: "/g/kreshuk/wolny/workspace/takafumi_data/spoco_config/spoco_4/best_checkpoint.pytorch"
 input_file: "/g/kreshuk/wolny/Datasets/TakafumiCell/val/spoco_4_no_stitch/S4_C0_T00004_predictions.h5"
 delta_dist: 2.0
+segment_flag: True`
 model:
   name: SpocoInference
   is3d: true
