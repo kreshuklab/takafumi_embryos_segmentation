@@ -19,5 +19,5 @@ Neural networks used to predict the embryo cell boundaries were trained with [py
 Given the cell boundary network the final segmentation results were computed using [plant-seg](https://github.com/hci-unihd/plant-seg).
 Relevant plant-seg configuration files can be found in [plantseg_configs](plantseg_configs).
 
-For networks trained with sparsely annotated embryo cells used the [SPOCO](https://github.com/kreshuklab/spoco) method
+For networks trained with sparsely annotated embryo cells we used [SPOCO](https://github.com/kreshuklab/spoco).
 SPOCO configuration files can be found in [spoco_configs](spoco_configs).
