@@ -1,5 +1,5 @@
 # takafumi_embryos_segmentation
-This repository contains a configuration files used to reproduce the segmentation experiments from the paper [An ex vivo system to study cellular dynamics underlying mouse peri-implantation development](https://www.sciencedirect.com/science/article/pii/S1534580721010431):
+This repository contains configuration files used to reproduce the segmentation experiments from the paper [An ex vivo system to study cellular dynamics underlying mouse peri-implantation development](https://www.sciencedirect.com/science/article/pii/S1534580721010431):
 ```
 @article{ICHIKAWA2022,
 title = {An ex vivo system to study cellular dynamics underlying mouse peri-implantation development},
