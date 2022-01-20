@@ -1,10 +1,10 @@
+import glob
 import gzip
 import os
 import shutil
 
 import h5py
 import tifffile
-import glob
 
 
 def read_file(path):
@@ -38,8 +38,3 @@ def main(in_path):
         with h5py.File(out_path, 'w') as f:
             f.create_dataset('raw', data=raw, compression='gzip')
             f.create_dataset('label', data=seg, compression='gzip')
-
-
-if __name__ == '__main__':
-    in_path = '/home/adrian/Downloads/210727_ground_truth'
-    main(in_path)
